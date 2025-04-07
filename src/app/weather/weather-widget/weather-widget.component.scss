@@ -1,0 +1,23 @@
+@import "init";
+
+:host {
+  $widget-border-base: .2rem; // base border value, that will be used to calculate offset and outline
+
+  color: $white;
+  text-align: center;
+
+  .weather-widget {
+    cursor: pointer;
+    padding: $widget-border-base + map-get($gutters, 3);
+    outline: $widget-border-base solid $white;
+    outline-offset: - $widget-border-base * 2;
+    border-radius: $border-radius-xl;
+    height: 300px;  // by design
+    width: 230px; // by design
+    transition: outline-offset .1s;
+
+    &:hover {
+      outline-offset: - $widget-border-base;
+    }
+  }
+}

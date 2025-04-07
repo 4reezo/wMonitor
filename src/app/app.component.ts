@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { LayoutComponent } from './core/layout/layout.component';
+import { provideRouter, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ LayoutComponent ],
+  imports: [ LayoutComponent, RouterOutlet ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -1,0 +1,9 @@
+@import "init";
+
+.weather-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: map-get($gutters, 3);
+}
