@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* OVERRIDES START */
+$body-bg: blue;
+/* OVERRIDES END */
+
+// safe import
+@import "app/scss/init";
+
+// BOOTSTRAP PARTS
+// root
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/root";
+
+// grid
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/containers";
+
+
