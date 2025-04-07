@@ -1,0 +1,22 @@
+@import "init";
+
+:host {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100%;
+  overflow: auto;
+  padding-top: $app-header-height;
+}
+
+app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.main {
+  min-height: 1px;
+  flex: 1;
+  padding: 2rem 0 3rem;
+}
