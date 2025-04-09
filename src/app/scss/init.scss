@@ -7,3 +7,13 @@
 // some app variables
 $app-header-height: 140px;
 
+// custom mixins
+@mixin abs($top, $right, $bottom, $left) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  right: $right;
+  bottom: $bottom;
+}
+
+

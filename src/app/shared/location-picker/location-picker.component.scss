@@ -1,0 +1,8 @@
+@import "init";
+
+.buttons {
+
+  display: flex;
+  flex-flow: row wrap;
+  gap: map-get($gutters, 1);
+}

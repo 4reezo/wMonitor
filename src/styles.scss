@@ -16,9 +16,15 @@ $body-bg: #61adab;
 // root
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/root";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/utilities/api";
 
 // grid
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/containers";
+
+// forms
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/forms";
 
 
