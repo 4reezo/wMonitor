@@ -11,7 +11,12 @@ class WidgetsSelectors {
     getSelectedLocation = createSelector(
         this.featureStateSelector,
         state => state.selectedLocation,
-    )
+    );
+
+    getWeatherPreview = createSelector(
+        this.featureStateSelector,
+        state => state.weatherPreview,
+    );
 
     constructor(private featureStateSelector: (state: Store) => WidgetsState) {
     }

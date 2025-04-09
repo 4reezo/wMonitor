@@ -3,13 +3,13 @@ import { GeoApiService, GeoResponse } from './geo-api.service';
 import { map, Observable } from 'rxjs';
 import { WeatherLocation } from './geo.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class GeoService {
     private apiService = inject(GeoApiService);
 
     getLocationByName(name: string): Observable<WeatherLocation[]> {
         return this.apiService.directSearch(name).pipe(
-            map(res => res.map(this.toWeatherLocation))
+            map(res => res.map(this.toWeatherLocation)),
         );
     }
 
@@ -20,9 +20,9 @@ export class GeoService {
             name: responseItem.name,
             caption: 'localized caption',
             fullName: `${responseItem.name} (${responseItem.country}, ${responseItem.state})`,
-            coords: [responseItem.lon, responseItem.lat],
+            coords: [ responseItem.lat, responseItem.lon ],
             countryCode: responseItem.country,
-            state: responseItem.state
+            state: responseItem.state,
         }
     }
 }

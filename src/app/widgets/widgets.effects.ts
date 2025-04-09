@@ -2,17 +2,22 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { widgetsActions } from './widgets.actions';
 import { GeoService } from '../core/geo/geo.service';
-import { catchError, EMPTY, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, EMPTY, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { widgetsSelectors } from './widgets.selectors';
 import { select, Store } from '@ngrx/store';
 import { homeActions } from '../home/home.actions';
 import { Guid } from 'js-guid';
 import { appRouterActions } from '../core/app-router/app-router.actions';
+import { WeatherService } from '../core/weather/weather.service';
+import { weatherActions } from '../core/weather/weather.actions';
 
 @Injectable()
 export class WidgetsEffects {
+    private correlationContext = 'weather-preview';
+
     actions$ = inject(Actions);
     geoService = inject(GeoService);
+    weatherService = inject(WeatherService)
     store = inject(Store);
 
     searchLocation$ = createEffect(() => this.actions$.pipe(
@@ -25,9 +30,12 @@ export class WidgetsEffects {
 
     saveWidget$ = createEffect(() => this.actions$.pipe(
         ofType(widgetsActions.saveWidget),
-        withLatestFrom(this.store.pipe(select(widgetsSelectors.getSelectedLocation))),
-        switchMap(([ action, location ]) => {
-            if (!location) {
+        withLatestFrom(
+            this.store.pipe(select(widgetsSelectors.getSelectedLocation)),
+            this.store.pipe(select(widgetsSelectors.getWeatherPreview)),
+        ),
+        switchMap(([ action, location, weather ]) => {
+            if (!location || !weather) {
                 return EMPTY;
             }
 
@@ -36,9 +44,22 @@ export class WidgetsEffects {
                     id: action.id || Guid.newGuid().toString(),
                     location: location,
                     settings: { tempUnits: 'C', showTime: true },
-                    weather: {},
+                    weather: weather,
                 }),
                 appRouterActions.go([ '/' ]));
         }),
+    ));
+
+    getWeatherPreview$ = createEffect(() => this.actions$.pipe(
+        ofType(widgetsActions.pickLocation),
+        map(action => {
+            return action.location ? weatherActions.getWeather(action.location.coords, this.correlationContext) : widgetsActions.clearWeatherPreview()
+        }),
+    ));
+
+    getWeatherPreviewSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(weatherActions.getWeatherSuccess),
+        filter(action => action.context === this.correlationContext),
+        map(action => widgetsActions.gotWeatherPreview(action.weather)),
     ))
 }

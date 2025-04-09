@@ -8,6 +8,7 @@ import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideHttpClient } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
 import { AppRouterEffects } from './core/app-router/app-router.effects';
+import { WeatherEffects } from './core/weather/weather.effects';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -19,6 +20,9 @@ export const appConfig: ApplicationConfig = {
         provideStoreDevtools(),
         provideRouterStore(),
         provideHttpClient(),
-        provideEffects(AppRouterEffects),
+        provideEffects(
+            AppRouterEffects,
+            WeatherEffects,
+        ),
     ],
 };

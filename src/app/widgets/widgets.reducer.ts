@@ -7,6 +7,7 @@ export const widgetsFeatureKey = 'widgets';
 const initialState: WidgetsState = {
     suggestedLocations: [],
     selectedLocation: null,
+    weatherPreview: null,
 }
 
 const suggestedLocationsReducer = createReducer(initialState.suggestedLocations,
@@ -15,9 +16,16 @@ const suggestedLocationsReducer = createReducer(initialState.suggestedLocations,
 );
 
 const selectedLocationReducer = createReducer(initialState.selectedLocation,
-    on(widgetsActions.pickLocation, (state, action) => action.location))
+    on(widgetsActions.pickLocation, (state, action) => action.location));
+
+const weatherPreviewReducer = createReducer(initialState.weatherPreview,
+    on(widgetsActions.gotWeatherPreview, (state, action) => action.weather),
+    on(widgetsActions.clearWeatherPreview, () => null),
+);
+
 
 export const widgetsReducer = combineReducers({
     suggestedLocations: suggestedLocationsReducer,
     selectedLocation: selectedLocationReducer,
+    weatherPreview: weatherPreviewReducer,
 });
