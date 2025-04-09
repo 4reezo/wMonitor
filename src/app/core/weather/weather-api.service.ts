@@ -8,7 +8,7 @@ export interface WeatherResponse {
         main: string;
         description: string;
         icon: string;
-    },
+    }[], // not sure why this one is array...
     main: {
         temp: number;
         temp_min: number;

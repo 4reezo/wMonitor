@@ -1,3 +1,24 @@
 <div class="weather-widget">
-    <div><h5>{{ widget?.location?.name || '' }}</h5></div>
+    @if (widget) {
+        <div class="general-info">
+            @if (widget.location && widget.weather) {
+                <app-widget-general
+                        [caption]="widget.location?.name + ' (' + widget.location.countryCode + ')'"
+                        [iconCode]="widget.weather?.iconCode"
+                        [description]="widget.weather?.description">
+                </app-widget-general>
+            }
+        </div>
+        <div class="widget-temp">
+            @if (widget.weather.temp) {
+                <app-widget-temp [temp]="widget.weather.temp"></app-widget-temp>
+            }
+        </div>
+        <div class="wind">
+            @if (widget.weather.wind) {
+                <app-widget-wind [wind]="widget.weather.wind"></app-widget-wind>
+            }
+        </div>
+    }
 </div>
+

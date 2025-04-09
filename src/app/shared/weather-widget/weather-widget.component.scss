@@ -7,17 +7,39 @@
   text-align: center;
 
   .weather-widget {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: map-get($gutters, 2);
     cursor: pointer;
     padding: $widget-border-base + map-get($gutters, 3);
     outline: $widget-border-base solid $white;
     outline-offset: - $widget-border-base * 2;
     border-radius: $border-radius-xl;
-    height: 300px;  // by design
+    height: 300px; // by design
     width: 230px; // by design
     transition: outline-offset .1s;
 
-    &:hover {
+    &:not(.preview):hover {
       outline-offset: - $widget-border-base;
+      background-color: rgba(255, 255, 255, .1);
     }
   }
+}
+
+.general-info {
+
+}
+
+.location {
+
+}
+
+.temperature {
+
+}
+
+.wind {
+
 }

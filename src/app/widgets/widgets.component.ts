@@ -14,7 +14,6 @@ import { WeatherLocation } from '../core/geo/geo.model';
     selector: 'app-widgets',
     standalone: true,
     imports: [
-        WeatherWidgetComponent,
         AsyncPipe,
         LocationPickerComponent,
         ReactiveFormsModule,
