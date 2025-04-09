@@ -2,17 +2,24 @@
     <div class="row">
         <div class="preview col-3">
             <h4>Preview</h4>
-            <app-weather-widget [widget]="widget"></app-weather-widget>
+            <!--            <app-weather-widget [widget]="widget"></app-weather-widget>-->
         </div>
-        <div class="location col-9" [formGroup]="form">
+        <div class="location col-7" [formGroup]="form">
             <div class="row">
                 <div class="col-6">
                     <h4>Location</h4>
-                    <app-location-picker
-                            formControlName="location"
-                            (search)="onSearch($event)"
-                            [suggestedOptions]="suggestedLocations$ | async"
-                    ></app-location-picker>
+                    @let selectedLocation = selectedLocation$ | async;
+                    @if (selectedLocation) {
+                        <p>{{ selectedLocation.name }}
+                            <button type="button" (click)="clearLocation()" class="btn btn-sm btn-danger">X</button>
+                        </p>
+                    } @else {
+                        <app-location-picker
+                                formControlName="location"
+                                (search)="onSearch($event)"
+                                [suggestedOptions]="suggestedLocations$ | async"
+                        ></app-location-picker>
+                    }
                 </div>
                 <div class="col-6" formGroupName="settings">
                     <h4>Settings</h4>
@@ -33,11 +40,15 @@
                                id="radioDefault2"
                                value="F">
                         <label class="form-check-label" for="radioDefault2">
-                           Fahrenheit
+                            Fahrenheit
                         </label>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="location col-2">
+            <button [disabled]="!selectedLocation" (click)="saveWidget()" type="button" class="btn btn-success">Save
+            </button>
         </div>
     </div>
 </div>

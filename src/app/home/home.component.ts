@@ -1,13 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { WeatherWidget } from '../shared/weather-widget/weather-widget.model';
 import { WeatherWidgetComponent } from '../shared/weather-widget/weather-widget.component';
+import { homeSelectors } from './home.selectors';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     imports: [
         WeatherWidgetComponent,
+        AsyncPipe,
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
@@ -15,16 +18,9 @@ import { WeatherWidgetComponent } from '../shared/weather-widget/weather-widget.
 export class HomeComponent {
     private store = inject(Store);
 
-    items: WeatherWidget[] = [
-        // { id: 1, locationName: "Saint-Petersburg" },
-        // { id: 2, locationName: "Moscow" },
-        // { id: 3, locationName: "New-York" },
-        // { id: 4, locationName: "London" },
-        // { id: 5, locationName: "Paris" },
-    ];
+    widgetList$ = this.store.pipe(select(homeSelectors.selectWidgetList));
 
-    addWidget() {
-        console.log("add clicked!");
-        //this.store.dispatch(weatherActions.addWidget());
+    constructor() {
+        //this.widgetList$.subscribe(console.log);
     }
 }

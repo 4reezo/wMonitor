@@ -1,5 +1,5 @@
 import { WidgetsState } from './widgets.model';
-import { weatherDetailsFeatureKey } from './widgets.reducer';
+import { widgetsFeatureKey } from './widgets.reducer';
 import { createFeatureSelector, createSelector, Store } from '@ngrx/store';
 
 class WidgetsSelectors {
@@ -8,9 +8,14 @@ class WidgetsSelectors {
         state => state.suggestedLocations || [],
     );
 
+    getSelectedLocation = createSelector(
+        this.featureStateSelector,
+        state => state.selectedLocation,
+    )
+
     constructor(private featureStateSelector: (state: Store) => WidgetsState) {
     }
 }
 
-const featureStateSelector = createFeatureSelector<WidgetsState>(weatherDetailsFeatureKey);
-export const weatherDetailsSelectors = new WidgetsSelectors(featureStateSelector);
+const featureStateSelector = createFeatureSelector<WidgetsState>(widgetsFeatureKey);
+export const widgetsSelectors = new WidgetsSelectors(featureStateSelector);

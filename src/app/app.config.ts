@@ -6,16 +6,19 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideHttpClient } from '@angular/common/http';
+import { provideEffects } from '@ngrx/effects';
+import { AppRouterEffects } from './core/app-router/app-router.effects';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
-    provideStore({
-      router: routerReducer,
-    }),
-    provideStoreDevtools(),
-    provideRouterStore(),
-    provideHttpClient()
-  ]
+    providers: [
+        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideRouter(routes),
+        provideStore({
+            router: routerReducer,
+        }),
+        provideStoreDevtools(),
+        provideRouterStore(),
+        provideHttpClient(),
+        provideEffects(AppRouterEffects),
+    ],
 };

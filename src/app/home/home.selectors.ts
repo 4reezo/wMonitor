@@ -1,11 +1,16 @@
-import { createFeatureSelector, Store } from '@ngrx/store';
-import { weatherFeatureKey } from './home.reducer';
-import { WeatherState } from './home.model';
+import { createFeatureSelector, createSelector, Store } from '@ngrx/store';
+import { homeFeatureKey } from './home.reducer';
+import { HomeState } from './home.model';
 
 class HomeSelectors {
-   constructor(private stateSelector: (store: Store) => WeatherState) {
-   }
+    selectWidgetList = createSelector(
+        this.featureStateSelector,
+        state => Object.values(state.widgetList),
+    )
+
+    constructor(private featureStateSelector: (store: Store) => HomeState) {
+    }
 }
 
-const weatherFeatureSelector = createFeatureSelector<WeatherState>(weatherFeatureKey);
-export const weatherSelector = new HomeSelectors(weatherFeatureSelector);
+const homeFeatureSelector = createFeatureSelector<HomeState>(homeFeatureKey);
+export const homeSelectors = new HomeSelectors(homeFeatureSelector);

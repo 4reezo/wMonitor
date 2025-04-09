@@ -1,9 +1,11 @@
-import { createActionGroup, emptyProps } from '@ngrx/store';
+import { createActionGroup } from '@ngrx/store';
+import { WeatherLocation } from '../core/geo/geo.model';
+import { WeatherWidget } from '../shared/weather-widget/weather-widget.model';
 
 export const homeActions = createActionGroup({
     source: 'Home',
     events: {
-        'Add widget': emptyProps()
-    }
+        insertWidget: (widget: WeatherWidget) => ({ widget }),
+    },
 })
 

@@ -1,6 +1,6 @@
 <div class="weather-list">
-    @for (item of items; track item.id) {
-        <app-weather-widget [widget]="item"></app-weather-widget>
+    @for (widget of widgetList$ | async; track widget.id) {
+        <app-weather-widget [widget]="widget"></app-weather-widget>
     }
     <!--    <app-weather-widget (addWidget)="addWidget()"></app-weather-widget>-->
 </div>
