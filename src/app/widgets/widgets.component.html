@@ -75,7 +75,9 @@
             </div>
         </div>
         <div class="location col-2">
-            <button [disabled]="!preview" (click)="saveWidget()" type="button" class="btn btn-success">Save</button>
+            @let editId = editWidgetId$ | async;
+            <button [disabled]="!preview" (click)="saveWidget(editId)" type="button" class="btn btn-success">Save
+            </button>
         </div>
     </div>
 </div>

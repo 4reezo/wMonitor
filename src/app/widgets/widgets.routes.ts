@@ -10,7 +10,6 @@ export const widgetsRoutes: Routes = [
     {
         path: ':id',
         component: WidgetsComponent,
-        data: { isAdding: true },
         providers: [
             provideEffects(WidgetsEffects),
             provideState(widgetsFeatureKey, widgetsReducer),

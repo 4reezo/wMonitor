@@ -1,8 +1,9 @@
 <label for="locationDataList" class="form-label">Pick a location</label>
-<input autocomplete="off" [formControl]="locationInput" class="form-control mb-3" id="locationDataList" placeholder="Type to search...">
+<input autocomplete="off" [formControl]="locationInput" class="form-control mb-3" id="locationDataList"
+       placeholder="Type to search...">
 
 <div class="buttons">
-    @for (location of suggestedOptions; track location) {
+    @for (location of suggestedOptions; track location.id) {
         <button (click)="pickLocation(location)" class="btn btn-sm btn-primary">{{ location.fullName }}</button>
     }
 </div>

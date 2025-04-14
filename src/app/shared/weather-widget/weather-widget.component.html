@@ -22,6 +22,19 @@
                 <app-widget-wind [wind]="widget.weather.wind" [selectedUnits]="settings.speedUnits"></app-widget-wind>
             }
         </div>
+        <div class="actions">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a [routerLink]="['/', 'widgets', widget.id]" class="btn btn-sm btn-outline-light">
+                    <i class="bi-pencil-fill"></i>
+                </a>
+                <button (click)="update.emit(widget.id)" type="button" class="btn btn-sm btn-outline-light">
+                    <i class="bi-arrow-clockwise"></i>
+                </button>
+                <button (click)="remove.emit(widget.id)" type="button" class="btn btn-sm btn-outline-light">
+                    <i class="bi-trash-fill"></i>
+                </button>
+            </div>
+        </div>
     }
 </div>
 

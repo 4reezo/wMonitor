@@ -9,7 +9,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { WidgetSettings } from '../shared/weather-widget/weather-widget.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WeatherLocation } from '../core/geo/geo.model';
-import { startWith } from 'rxjs';
+import { filter, startWith, take } from 'rxjs';
 
 const defaultSettings: WidgetSettings = {
     tempUnits: 'c',
@@ -40,6 +40,8 @@ export class WidgetsComponent {
 
     suggestedLocations$ = this.store.pipe(select(widgetsSelectors.getSuggestedLocations));
     selectWidgetPreview$ = this.store.pipe(select(widgetsSelectors.getWidgetPreview));
+    editWidget$ = this.store.pipe(select(widgetsSelectors.getEditWidget));
+    editWidgetId$ = this.store.pipe(select(widgetsSelectors.getEditId));
 
     constructor() {
         // react to location changes
@@ -56,6 +58,17 @@ export class WidgetsComponent {
         ).subscribe(settings => {
             this.store.dispatch(widgetsActions.pickSettings({ ...defaultSettings, ...settings as WidgetSettings }));
         });
+
+        // if we are editing a widget, we should put it to the preview state and set form values
+        this.editWidget$.pipe(
+            takeUntilDestroyed(),
+            take(1),
+            filter(w => !!w),
+        ).subscribe(widget => {
+            this.store.dispatch(widgetsActions.pickLocation(widget?.location));
+            this.store.dispatch(widgetsActions.pickSettings(widget?.settings));
+            this.form.controls.settings.patchValue(widget?.settings);
+        });
     }
 
     onSearch(query: string): void {
@@ -66,7 +79,7 @@ export class WidgetsComponent {
         this.store.dispatch(widgetsActions.pickLocation(null));
     }
 
-    saveWidget() {
-        this.store.dispatch(widgetsActions.saveWidget('new'));
+    saveWidget(id?: string) {
+        this.store.dispatch(widgetsActions.saveWidget(id || 'new'));
     }
 }

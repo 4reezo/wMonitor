@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WeatherWidget } from './weather-widget.model';
 import { WidgetGeneralComponent } from './widget-general/widget-general.component';
 import { WidgetTempComponent } from './widget-temp/widget-temp.component';
 import { WidgetWindComponent } from './widget-wind/widget-wind.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-weather-widget',
@@ -11,6 +12,7 @@ import { WidgetWindComponent } from './widget-wind/widget-wind.component';
         WidgetGeneralComponent,
         WidgetTempComponent,
         WidgetWindComponent,
+        RouterLink,
     ],
     templateUrl: './weather-widget.component.html',
     styleUrl: './weather-widget.component.scss',
@@ -20,4 +22,9 @@ export class WeatherWidgetComponent {
     widget?: WeatherWidget;
     @Input()
     isPreview: boolean = false;
+
+    @Output()
+    remove = new EventEmitter<string>();
+    @Output()
+    update = new EventEmitter<string>();
 }

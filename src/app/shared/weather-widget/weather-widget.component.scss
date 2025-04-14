@@ -7,6 +7,7 @@
   text-align: center;
 
   .weather-widget {
+    position: relative;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
@@ -24,22 +25,15 @@
     &:not(.preview):hover {
       outline-offset: - $widget-border-base;
       background-color: rgba(255, 255, 255, .1);
+
+      .actions {
+        display: block;
+      }
     }
   }
-}
 
-.general-info {
-
-}
-
-.location {
-
-}
-
-.temperature {
-
-}
-
-.wind {
-
+  .actions {
+    @include abs(8px, auto, auto, auto);
+    display: none;
+  }
 }

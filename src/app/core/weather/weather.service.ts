@@ -14,8 +14,6 @@ export class WeatherService {
     }
 
     private toWeather(responseItem: WeatherResponse): Weather {
-
-        console.log(responseItem);
         return {
             main: responseItem.weather[0].main,
             description: responseItem.weather[0].description,
@@ -36,6 +34,7 @@ export class WeatherService {
                 i: [ this.toMph(responseItem.wind.speed), responseItem.wind.deg ],
             },
             iconCode: responseItem.weather[0].icon as WeatherIconCode,
+            tms: Date.now(),
         };
     }
 

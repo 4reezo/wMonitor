@@ -4,6 +4,7 @@ export interface Weather {
     temp: WeatherTemp;
     wind: Wind;
     iconCode: WeatherIconCode;
+    tms: number;
 }
 
 export interface WeatherTemp {

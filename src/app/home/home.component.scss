@@ -7,3 +7,27 @@
   align-items: center;
   gap: map-get($gutters, 3);
 }
+
+.add-widget {
+  $widget-border-base: .2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: $widget-border-base solid $white;
+  outline-offset: - $widget-border-base * 2;
+  border-radius: $border-radius-xl;
+  height: 300px; // by design
+  width: 230px; // by design
+  transition: outline-offset .1s;
+
+  &:not(.preview):hover {
+    outline-offset: - $widget-border-base;
+    background-color: rgba(255, 255, 255, .1);
+  }
+
+  i {
+    color: $white;
+    font-size: 6rem;
+  }
+}

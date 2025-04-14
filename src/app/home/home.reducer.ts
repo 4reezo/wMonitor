@@ -5,15 +5,26 @@ import { homeActions } from './home.actions';
 export const homeFeatureKey = "home";
 
 const initialState: HomeState = {
-    widgetList: {},
+    widgets: {},
 }
 
-const widgetListReducer = createReducer(initialState.widgetList,
+const widgetsReducer = createReducer(initialState.widgets,
     on(homeActions.insertWidget, (state, action) => {
         return { ...state, [action.widget.id]: action.widget };
+    }),
+    on(homeActions.removeWidget, (state, action) => {
+        const newState = { ...state };
+        delete newState[action.id];
+
+        return newState;
+    }),
+    on(homeActions.updateWeatherSuccess, (state, action) => {
+        const updatedWidget = { ...state[action.id], weather: action.weather };
+
+        return { ...state, [action.id]: updatedWidget };
     }),
 );
 
 export const homeReducer = combineReducers({
-    widgetList: widgetListReducer,
+    widgets: widgetsReducer,
 });

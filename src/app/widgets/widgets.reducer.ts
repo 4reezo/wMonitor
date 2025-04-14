@@ -13,7 +13,7 @@ const initialState: WidgetsState = {
 
 const suggestedLocationsReducer = createReducer(initialState.suggestedLocations,
     on(widgetsActions.searchLocationSuccess, (state, action) => action.res),
-    on(widgetsActions.searchLocationFailure, () => []),
+    on(widgetsActions.searchLocationFailure, widgetsActions.clearPreview, () => []),
 );
 
 const selectedLocationReducer = createReducer(initialState.selectedLocation,
@@ -22,12 +22,12 @@ const selectedLocationReducer = createReducer(initialState.selectedLocation,
 
 const weatherPreviewReducer = createReducer(initialState.weatherPreview,
     on(widgetsActions.gotWeatherPreview, (state, action) => action.weather),
-    on(widgetsActions.clearWeatherPreview, () => null),
+    on(widgetsActions.clearPreview, () => null),
 );
 
 const settingsPreviewReducer = createReducer(initialState.settingsPreview,
     on(widgetsActions.pickSettings, (state, action) => action.settings),
-    on(widgetsActions.clearWeatherPreview, () => null),
+    on(widgetsActions.clearPreview, () => null),
 );
 
 export const widgetsReducer = combineReducers({

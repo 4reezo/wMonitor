@@ -3,9 +3,14 @@ import { homeFeatureKey } from './home.reducer';
 import { HomeState } from './home.model';
 
 class HomeSelectors {
-    selectWidgetList = createSelector(
+    selectWidgetDict = createSelector(
         this.featureStateSelector,
-        state => Object.values(state.widgetList),
+        state => state?.widgets,
+    )
+
+    selectWidgetList = createSelector(
+        this.selectWidgetDict,
+        widgets => widgets ? Object.values(widgets) : [],
     )
 
     constructor(private featureStateSelector: (store: Store) => HomeState) {

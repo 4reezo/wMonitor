@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { GeoApiService, GeoResponse } from './geo-api.service';
 import { map, Observable } from 'rxjs';
 import { WeatherLocation } from './geo.model';
+import { Guid } from 'js-guid';
 
 @Injectable({ providedIn: 'root' })
 export class GeoService {
@@ -15,8 +16,8 @@ export class GeoService {
 
     toWeatherLocation(responseItem: GeoResponse): WeatherLocation {
         return {
-            // not an id technically, but at least something to differentiate
-            id: `${responseItem.country}-${responseItem.state}-${responseItem.name}`.toLowerCase(),
+            // weather geo api does not provide any id, so creating one
+            id: Guid.newGuid().toString(),
             name: responseItem.name,
             caption: 'localized caption',
             fullName: `${responseItem.name} (${responseItem.country}, ${responseItem.state})`,

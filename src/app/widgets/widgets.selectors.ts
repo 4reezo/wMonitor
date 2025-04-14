@@ -2,6 +2,10 @@ import { WidgetsState } from './widgets.model';
 import { widgetsFeatureKey } from './widgets.reducer';
 import { createFeatureSelector, createSelector, Store } from '@ngrx/store';
 import { WeatherWidget } from '../shared/weather-widget/weather-widget.model';
+import { getRouterSelectors } from '@ngrx/router-store';
+import { Params } from '@angular/router';
+import { HomeState } from '../home/home.model';
+import { homeSelectors } from '../home/home.selectors';
 
 class WidgetsSelectors {
     getSuggestedLocations = createSelector(
@@ -38,9 +42,34 @@ class WidgetsSelectors {
         ),
     );
 
-    constructor(private featureStateSelector: (state: Store) => WidgetsState) {
+    getEditId = createSelector(
+        this.routeParamsSelector,
+        (params) => params?.['id'] || null,
+    );
+
+    getEditWidget = createSelector(
+        this.widgetsSelector,
+        this.getEditId,
+        (widgets, id) => {
+            if (!id || !widgets) {
+                return null;
+            }
+
+            return widgets[id] || null;
+        },
+    );
+
+    constructor(
+        private featureStateSelector: (state: Store) => WidgetsState,
+        private routeParamsSelector: (state: Store) => Params,
+        private widgetsSelector: (state: Store) => Record<string, WeatherWidget>,
+    ) {
     }
 }
 
 const featureStateSelector = createFeatureSelector<WidgetsState>(widgetsFeatureKey);
-export const widgetsSelectors = new WidgetsSelectors(featureStateSelector);
+export const widgetsSelectors = new WidgetsSelectors(
+    featureStateSelector,
+    getRouterSelectors().selectRouteParams,
+    homeSelectors.selectWidgetDict,
+);

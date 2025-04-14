@@ -1,6 +1,12 @@
 <div class="weather-list">
     @for (widget of widgetList$ | async; track widget.id) {
-        <app-weather-widget [widget]="widget"></app-weather-widget>
+        <app-weather-widget
+                [widget]="widget"
+                (remove)="onRemoveWidget($event)"
+                (update)="onUpdateWidget($event)"
+        ></app-weather-widget>
     }
-    <!--    <app-weather-widget (addWidget)="addWidget()"></app-weather-widget>-->
+    <a [routerLink]="['/', 'widgets']" class="add-widget">
+        <i class="bi-file-plus-fill"></i>
+    </a>
 </div>

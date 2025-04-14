@@ -10,7 +10,7 @@ export const widgetsActions = createActionGroup({
             searchLocationSuccess: (res: WeatherLocation[]) => ({ res }),
             searchLocationFailure: (err: Error) => ({ err }),
 
-            clearWeatherPreview: emptyProps(),
+            clearPreview: emptyProps(),
             gotWeatherPreview: (weather: Weather) => ({ weather }),
 
             pickLocation: (location: WeatherLocation | null) => ({ location }),

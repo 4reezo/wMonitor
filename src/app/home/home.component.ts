@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { WeatherWidget } from '../shared/weather-widget/weather-widget.model';
 import { WeatherWidgetComponent } from '../shared/weather-widget/weather-widget.component';
 import { homeSelectors } from './home.selectors';
 import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { homeActions } from './home.actions';
 
 @Component({
     selector: 'app-home',
@@ -11,6 +12,7 @@ import { AsyncPipe } from '@angular/common';
     imports: [
         WeatherWidgetComponent,
         AsyncPipe,
+        RouterLink,
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
@@ -20,7 +22,11 @@ export class HomeComponent {
 
     widgetList$ = this.store.pipe(select(homeSelectors.selectWidgetList));
 
-    constructor() {
-        //this.widgetList$.subscribe(console.log);
+    onRemoveWidget(id: string) {
+        this.store.dispatch(homeActions.removeWidget(id));
+    }
+
+    onUpdateWidget(id: string) {
+        this.store.dispatch(homeActions.updateWeather(id));
     }
 }

@@ -41,14 +41,15 @@ export class WidgetsEffects {
                     ...widget,
                     id: action.id === 'new' ? Guid.newGuid().toString() : action.id,
                 }),
-                appRouterActions.go([ '/' ]));
+                appRouterActions.go([ '/' ]),
+                widgetsActions.clearPreview());
         }),
     ));
 
     getWeatherPreview$ = createEffect(() => this.actions$.pipe(
         ofType(widgetsActions.pickLocation),
         map(action => {
-            return action.location ? weatherActions.getWeather(action.location.coords, this.correlationContext) : widgetsActions.clearWeatherPreview()
+            return action.location ? weatherActions.getWeather(action.location.coords, this.correlationContext) : widgetsActions.clearPreview()
         }),
     ));
 
