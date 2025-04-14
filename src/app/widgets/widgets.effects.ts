@@ -30,21 +30,16 @@ export class WidgetsEffects {
 
     saveWidget$ = createEffect(() => this.actions$.pipe(
         ofType(widgetsActions.saveWidget),
-        withLatestFrom(
-            this.store.pipe(select(widgetsSelectors.getSelectedLocation)),
-            this.store.pipe(select(widgetsSelectors.getWeatherPreview)),
-        ),
-        switchMap(([ action, location, weather ]) => {
-            if (!location || !weather) {
+        withLatestFrom(this.store.pipe(select(widgetsSelectors.getWidgetPreview))),
+        switchMap(([ action, widget ]) => {
+            if (!widget) {
                 return EMPTY;
             }
 
             return of(
                 homeActions.insertWidget({
-                    id: action.id || Guid.newGuid().toString(),
-                    location: location,
-                    settings: { tempUnits: 'C', showTime: true },
-                    weather: weather,
+                    ...widget,
+                    id: action.id === 'new' ? Guid.newGuid().toString() : action.id,
                 }),
                 appRouterActions.go([ '/' ]));
         }),

@@ -11,13 +11,21 @@ export class WidgetWindComponent {
     @Input()
     wind?: Wind;
     @Input()
-    speedUnits: SpeedUnits = 'm';
+    selectedUnits: SpeedUnits = 'm';
 
-    get windDisplay() {
+    get speed() {
         if (!this.wind) {
             return null;
         }
 
-        return this.wind[this.speedUnits];
+        return Math.round(this.wind[this.selectedUnits][0]);
+    }
+
+    get degree() {
+        if (!this.wind) {
+            return null;
+        }
+
+        return this.wind[this.selectedUnits][1];
     }
 }

@@ -18,4 +18,6 @@ import { WidgetWindComponent } from './widget-wind/widget-wind.component';
 export class WeatherWidgetComponent {
     @Input()
     widget?: WeatherWidget;
+    @Input()
+    isPreview: boolean = false;
 }

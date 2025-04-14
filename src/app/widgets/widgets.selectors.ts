@@ -1,6 +1,7 @@
 import { WidgetsState } from './widgets.model';
 import { widgetsFeatureKey } from './widgets.reducer';
 import { createFeatureSelector, createSelector, Store } from '@ngrx/store';
+import { WeatherWidget } from '../shared/weather-widget/weather-widget.model';
 
 class WidgetsSelectors {
     getSuggestedLocations = createSelector(
@@ -16,6 +17,25 @@ class WidgetsSelectors {
     getWeatherPreview = createSelector(
         this.featureStateSelector,
         state => state.weatherPreview,
+    );
+
+    getSettingsPreview = createSelector(
+        this.featureStateSelector,
+        state => state.settingsPreview,
+    );
+
+    getWidgetPreview = createSelector(
+        this.getSelectedLocation,
+        this.getWeatherPreview,
+        this.getSettingsPreview,
+        (location, weatherPreview, settingsPreview) => (
+            location && weatherPreview && settingsPreview ? {
+                id: 'new',
+                location: location,
+                settings: settingsPreview,
+                weather: weatherPreview,
+            } as WeatherWidget : null
+        ),
     );
 
     constructor(private featureStateSelector: (state: Store) => WidgetsState) {

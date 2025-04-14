@@ -2,15 +2,17 @@
     <div class="row">
         <div class="preview col-3">
             <h4>Preview</h4>
-            <!--                        <app-weather-widget [widget]="widget"></app-weather-widget>-->
+            @let preview = selectWidgetPreview$ | async;
+            @if (preview) {
+                <app-weather-widget [widget]="preview" [isPreview]="true"></app-weather-widget>
+            }
         </div>
         <div class="location col-7" [formGroup]="form">
             <div class="row">
                 <div class="col-6">
                     <h4>Location</h4>
-                    @let selectedLocation = selectedLocation$ | async;
-                    @if (selectedLocation) {
-                        <p>{{ selectedLocation.name }}
+                    @if (preview?.location) {
+                        <p>{{ preview?.location?.name }}
                             <button type="button" (click)="clearLocation()" class="btn btn-sm btn-danger">X</button>
                         </p>
                     } @else {
@@ -23,13 +25,16 @@
                 </div>
                 <div class="col-6" formGroupName="settings">
                     <h4>Settings</h4>
+                    <div class="mt-2">
+                        <label class="form-label">Temperature units</label>
+                    </div>
                     <div class="form-check form-check-inline">
                         <input formControlName="tempUnits"
                                class="form-check-input"
                                type="radio"
-                               id="radioDefault1"
-                               value="C">
-                        <label class="form-check-label" for="radioDefault1">
+                               id="unitc"
+                               value="c">
+                        <label class="form-check-label" for="unitc">
                             Celsius
                         </label>
                     </div>
@@ -37,18 +42,40 @@
                         <input formControlName="tempUnits"
                                class="form-check-input"
                                type="radio"
-                               id="radioDefault2"
-                               value="F">
-                        <label class="form-check-label" for="radioDefault2">
+                               id="unitf"
+                               value="f">
+                        <label class="form-check-label" for="unitf">
                             Fahrenheit
+                        </label>
+                    </div>
+                    <div class="mt-4">
+                        <label class="form-label">Speed units</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input formControlName="speedUnits"
+                               class="form-check-input"
+                               type="radio"
+                               id="unitm"
+                               value="m">
+                        <label class="form-check-label" for="unitm">
+                            Meters per second
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input formControlName="speedUnits"
+                               class="form-check-input"
+                               type="radio"
+                               id="uniti"
+                               value="i">
+                        <label class="form-check-label" for="uniti">
+                            Miles per hour
                         </label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="location col-2">
-            <button [disabled]="!selectedLocation" (click)="saveWidget()" type="button" class="btn btn-success">Save
-            </button>
+            <button [disabled]="!preview" (click)="saveWidget()" type="button" class="btn btn-success">Save</button>
         </div>
     </div>
 </div>

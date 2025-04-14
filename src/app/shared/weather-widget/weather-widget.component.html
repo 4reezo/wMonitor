@@ -1,22 +1,25 @@
-<div class="weather-widget">
+<div class="weather-widget" [class.preview]="isPreview">
     @if (widget) {
+        @let location = widget.location;
+        @let weather = widget.weather;
+        @let settings = widget.settings;
         <div class="general-info">
-            @if (widget.location && widget.weather) {
+            @if (location && weather) {
                 <app-widget-general
-                        [caption]="widget.location?.name + ' (' + widget.location.countryCode + ')'"
-                        [iconCode]="widget.weather?.iconCode"
-                        [description]="widget.weather?.description">
+                        [caption]="location.name + ' (' + location.countryCode + ')'"
+                        [iconCode]="weather.iconCode"
+                        [description]="weather.description">
                 </app-widget-general>
             }
         </div>
         <div class="widget-temp">
-            @if (widget.weather.temp) {
-                <app-widget-temp [temp]="widget.weather.temp"></app-widget-temp>
+            @if (weather?.temp && settings) {
+                <app-widget-temp [temp]="widget.weather.temp" [selectedUnits]="settings.tempUnits"></app-widget-temp>
             }
         </div>
         <div class="wind">
-            @if (widget.weather.wind) {
-                <app-widget-wind [wind]="widget.weather.wind"></app-widget-wind>
+            @if (weather?.wind && settings) {
+                <app-widget-wind [wind]="widget.weather.wind" [selectedUnits]="settings.speedUnits"></app-widget-wind>
             }
         </div>
     }

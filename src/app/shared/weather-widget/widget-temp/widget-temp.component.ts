@@ -20,13 +20,23 @@ export class WidgetTempComponent {
         }
 
         return [
-            Math.round(this.temp[this.selectedUnits][0]),
-            Math.round(this.temp[this.selectedUnits][1]),
-            Math.round(this.temp[this.selectedUnits][2]),
+            this.roundAndSign(this.temp[this.selectedUnits][0]),
+            this.roundAndSign(this.temp[this.selectedUnits][1]),
+            this.roundAndSign(this.temp[this.selectedUnits][2]),
         ];
     }
 
     get units() {
         return `${this.selectedUnits.toUpperCase()}&#176;`
+    }
+
+    private roundAndSign(temp: number): string {
+        const res = Math.round(temp);
+
+        if (res === 0) {
+            return res.toString(10);
+        }
+
+        return (res < 0 ? '-' : '+') + res.toString(10);
     }
 }

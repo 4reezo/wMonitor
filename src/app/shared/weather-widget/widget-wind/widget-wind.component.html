@@ -1,6 +1,5 @@
-@let wind = windDisplay;
 @if (wind) {
     <i class="bi-wind wind-icon"></i>
-    <span>{{ wind[0] }} {{ speedUnits === 'm' ? 'm/s' : 'mph' }}</span>
-    <i class="bi-arrow-up wind-icon" [style]="'transform: rotate(' + wind[1] + 'deg)'"></i>
+    <span>{{ speed }} {{ selectedUnits === 'm' ? 'm/s' : 'mph' }}</span>
+    <i class="bi-arrow-up wind-icon" [style]="'transform: rotate(' + degree + 'deg)'"></i>
 }
