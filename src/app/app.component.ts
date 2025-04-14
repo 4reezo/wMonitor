@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LayoutComponent } from './core/layout/layout.component';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
