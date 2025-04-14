@@ -13,8 +13,8 @@ export interface GeoResponse {
 
 @Injectable({ providedIn: 'root' })
 export class GeoApiService {
-    http = inject(HttpClient);
-    urlService = inject(UrlService);
+    private http = inject(HttpClient);
+    private urlService = inject(UrlService);
 
     directSearch(q: string) {
         const url = this.urlService.getGeoUrl('direct', { q, limit: '5' });

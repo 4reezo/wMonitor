@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { WeatherWidgetComponent } from '../shared/weather-widget/weather-widget.component';
 import { homeSelectors } from './home.selectors';
@@ -16,6 +16,7 @@ import { homeActions } from './home.actions';
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
     private store = inject(Store);

@@ -4,7 +4,6 @@ import { createFeatureSelector, createSelector, Store } from '@ngrx/store';
 import { WeatherWidget } from '../shared/weather-widget/weather-widget.model';
 import { getRouterSelectors } from '@ngrx/router-store';
 import { Params } from '@angular/router';
-import { HomeState } from '../home/home.model';
 import { homeSelectors } from '../home/home.selectors';
 
 class WidgetsSelectors {

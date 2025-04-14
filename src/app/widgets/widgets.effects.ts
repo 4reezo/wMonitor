@@ -8,17 +8,15 @@ import { select, Store } from '@ngrx/store';
 import { homeActions } from '../home/home.actions';
 import { Guid } from 'js-guid';
 import { appRouterActions } from '../core/app-router/app-router.actions';
-import { WeatherService } from '../core/weather/weather.service';
 import { weatherActions } from '../core/weather/weather.actions';
 
 @Injectable()
 export class WidgetsEffects {
     private correlationContext = 'weather-preview';
 
-    actions$ = inject(Actions);
-    geoService = inject(GeoService);
-    weatherService = inject(WeatherService)
-    store = inject(Store);
+    private actions$ = inject(Actions);
+    private geoService = inject(GeoService);
+    private store = inject(Store);
 
     searchLocation$ = createEffect(() => this.actions$.pipe(
         ofType(widgetsActions.searchLocation),

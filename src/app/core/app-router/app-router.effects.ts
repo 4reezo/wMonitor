@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AppRouterEffects {
-    actions$ = inject(Actions);
-    router = inject(Router);
+    private actions$ = inject(Actions);
+    private router = inject(Router);
 
     go$ = createEffect(() => this.actions$.pipe(
         ofType(appRouterActions.go),

@@ -27,7 +27,7 @@ const weatherPreviewReducer = createReducer(initialState.weatherPreview,
 
 const settingsPreviewReducer = createReducer(initialState.settingsPreview,
     on(widgetsActions.pickSettings, (state, action) => action.settings),
-    on(widgetsActions.clearPreview, () => null),
+    //on(widgetsActions.clearPreview, () => null),
 );
 
 export const widgetsReducer = combineReducers({

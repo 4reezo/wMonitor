@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-widget-general',
     imports: [],
     templateUrl: './widget-general.component.html',
     styleUrl: './widget-general.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WidgetGeneralComponent {
     @Input()

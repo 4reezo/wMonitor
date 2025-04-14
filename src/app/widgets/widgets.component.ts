@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { WeatherWidgetComponent } from '../shared/weather-widget/weather-widget.component';
 import { select, Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
@@ -28,10 +28,11 @@ const defaultSettings: WidgetSettings = {
     ],
     templateUrl: './widgets.component.html',
     styleUrl: './widgets.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WidgetsComponent {
-    store = inject(Store);
-    fb = inject(FormBuilder);
+    private store = inject(Store);
+    private fb = inject(FormBuilder);
 
     form = this.fb.group({
         location: [ null as WeatherLocation | null ],

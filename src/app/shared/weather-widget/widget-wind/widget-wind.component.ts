@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { SpeedUnits, Wind } from '../../../core/weather/weather.model';
 
 @Component({
@@ -6,6 +6,7 @@ import { SpeedUnits, Wind } from '../../../core/weather/weather.model';
     imports: [],
     templateUrl: './widget-wind.component.html',
     styleUrl: './widget-wind.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WidgetWindComponent {
     @Input()
