@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { LayoutComponent } from './core/layout/layout.component';
 import { RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { homeActions } from './home/home.actions';
 
 @Component({
     selector: 'app-root',
@@ -10,6 +12,14 @@ import { RouterOutlet } from '@angular/router';
     styleUrl: './app.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+    private store = inject(Store);
+
     title = 'wMonitor';
+
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.store.dispatch(homeActions.restoreWidgets());
+        }, 0);
+    }
 }

@@ -1,4 +1,25 @@
+@import 'init';
+
 .footer {
   background-color: #bd7979;
   padding: 1rem 0;
+}
+
+.links {
+  display: flex;
+  gap: .5rem;
+  justify-content: flex-end;
+  align-items: center;
+
+  i {
+    font-size: 1.5rem;
+  }
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: $gray-200;
+    }
+  }
 }

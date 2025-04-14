@@ -1,15 +1,30 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { homeActions } from './home.actions';
-import { filter, map, merge, Subject, switchMap, take, takeUntil, tap, withLatestFrom } from 'rxjs';
+import {
+    catchError,
+    filter,
+    map,
+    merge,
+    of,
+    skip,
+    Subject,
+    switchMap,
+    take,
+    takeUntil,
+    tap,
+    withLatestFrom,
+} from 'rxjs';
 import { weatherActions } from '../core/weather/weather.actions';
 import { homeSelectors } from './home.selectors';
 import { select, Store } from '@ngrx/store';
+import { LocalStorageService } from '../core/local-storage/local-store.service';
 
 @Injectable()
 export class HomeEffects implements OnDestroy {
     private actions$ = inject(Actions);
     private store = inject(Store);
+    private localStorage = inject(LocalStorageService);
     private destroySubj = new Subject<void>();
 
     updateWeather$ = createEffect(() => this.actions$.pipe(
@@ -36,6 +51,21 @@ export class HomeEffects implements OnDestroy {
             )
         }),
     ));
+
+    saveWidgetsToStore$ = createEffect(() => this.store.pipe(
+        select(homeSelectors.selectWidgetDict),
+        skip(1),
+        map(widgets => {
+            this.localStorage.saveWidgets(widgets);
+        }),
+    ), { dispatch: false })
+
+    restoreWidgets$ = createEffect(() => this.actions$.pipe(
+        ofType(homeActions.restoreWidgets),
+        map(() => this.localStorage.restoreWidgets()),
+        map(widgets => homeActions.restoreWidgetsSuccess(widgets || {})),
+        catchError(err => of(err)),
+    ))
 
     ngOnDestroy(): void {
         this.destroySubj.next();

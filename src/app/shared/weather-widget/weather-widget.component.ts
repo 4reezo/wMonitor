@@ -4,6 +4,7 @@ import { WidgetGeneralComponent } from './widget-general/widget-general.componen
 import { WidgetTempComponent } from './widget-temp/widget-temp.component';
 import { WidgetWindComponent } from './widget-wind/widget-wind.component';
 import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-weather-widget',
@@ -13,6 +14,7 @@ import { RouterLink } from '@angular/router';
         WidgetTempComponent,
         WidgetWindComponent,
         RouterLink,
+        DatePipe,
     ],
     templateUrl: './weather-widget.component.html',
     styleUrl: './weather-widget.component.scss',

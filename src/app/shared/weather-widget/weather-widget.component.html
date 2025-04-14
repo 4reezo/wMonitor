@@ -22,6 +22,9 @@
                 <app-widget-wind [wind]="widget.weather.wind" [selectedUnits]="settings.speedUnits"></app-widget-wind>
             }
         </div>
+        <div class="meta">
+            <p class="m-0"><small>Last update: {{ weather.tms | date: 'dd.MM.yy hh:mm' }}</small></p>
+        </div>
         <div class="actions">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a [routerLink]="['/', 'widgets', widget.id]" class="btn btn-sm btn-outline-light">

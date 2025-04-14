@@ -30,3 +30,10 @@ $body-bg: #61adab;
 @import "bootstrap/scss/forms";
 
 
+// small hack against bs z-index
+.btn-group > .btn:hover,
+.btn-group > .btn:active,
+.btn-group > .btn:focus {
+  z-index: unset !important;
+}
+

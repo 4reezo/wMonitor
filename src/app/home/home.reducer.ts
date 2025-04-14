@@ -23,6 +23,7 @@ const widgetsReducer = createReducer(initialState.widgets,
 
         return { ...state, [action.id]: updatedWidget };
     }),
+    on(homeActions.restoreWidgetsSuccess, (state, action) => action.widgets),
 );
 
 export const homeReducer = combineReducers({

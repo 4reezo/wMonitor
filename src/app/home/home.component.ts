@@ -30,4 +30,6 @@ export class HomeComponent {
     onUpdateWidget(id: string) {
         this.store.dispatch(homeActions.updateWeather(id));
     }
+
+
 }
